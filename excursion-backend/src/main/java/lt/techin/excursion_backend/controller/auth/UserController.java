@@ -7,6 +7,8 @@ import lt.techin.excursion_backend.dto.UserResponseDTO;
 import lt.techin.excursion_backend.model.User;
 import lt.techin.excursion_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +39,7 @@ public class UserController {
 
         UserResponseDTO responseDTO = UserMapper.toDTO(userService.saveUser(user));
 
-        return ResponseEntity.ok().body(responseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
 

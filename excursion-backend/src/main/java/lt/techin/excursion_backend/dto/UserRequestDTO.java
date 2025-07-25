@@ -9,7 +9,7 @@ public record UserRequestDTO(@NotNull(message = "You must provide an email")
 
                              @NotNull(message = "You must provide a password")
                              @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters")
-//                             @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-={}|\\[\\]:\";'<>?,./]).+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-//                                     message = "Invalid password format or missing character requirements")
+                             @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).+$",
+                                     message = "Invalid password format or missing character requirements")
                              String password) {
 }
