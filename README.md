@@ -10,11 +10,9 @@
 - Spring Data JPA
 - Spring Security
 - Spring Boot Starter Validation
-- Spring Boot DevTools
 - MySQL Driver
 - OAuth2 Resource Server
 - Maven
-- Lombok
 
 ### Front-end (React):
 - React 19+
@@ -38,6 +36,4 @@
 - iklijuoti kintamuosius i .env faila(kintamieji reikalingi prisijungimui prie duomenu bazes per apllication properties(klausti vieno is aplikacijos kureju)
 - susikurti aplnaka keys resources aplanke ir jame susikurti private.pem ir public.pem failus. juose iklijuoti public.pem ir private.pem raktus(klausti vieno is aplikacijos kureju)
 - paleisti ExcursionBackendApplication klasę
-
-## 📦 Projekto struktūra
 
