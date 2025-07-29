@@ -175,7 +175,7 @@ sketch
 .ionide
 
 # Security keys
-src/main/resources/keys/*.pem
+
 
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,react,java,visualstudiocode

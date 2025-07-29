@@ -33,7 +33,6 @@ build/
 .vscode/
 
 #Security
-private.pem
-public.pem
+src/main/resources/keys/*.pem
 
 .env

@@ -8,7 +8,7 @@ function App() {
       <NavBar />
       <RoutePaths />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
