@@ -1,9 +1,11 @@
 package lt.techin.excursion_backend.controller.auth;
 
 import jakarta.validation.Valid;
+import lt.techin.excursion_backend.dto.ApiResponse;
 import lt.techin.excursion_backend.dto.UserMapper;
 import lt.techin.excursion_backend.dto.UserRequestDTO;
 import lt.techin.excursion_backend.dto.UserResponseDTO;
+import lt.techin.excursion_backend.exception.ApiErrorException;
 import lt.techin.excursion_backend.model.User;
 import lt.techin.excursion_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 @RestController
 @RequestMapping("/api")
@@ -39,7 +45,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-//    @DeleteMapping("/users/{id}")
+//    @DeleteMapping("/users/{userId}")
 //    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 //        if (!userService.findUserById(id)) {
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
@@ -49,4 +55,14 @@ public class UserController {
 //        return ResponseEntity.ok("User deleted successfully");
 //    }
 
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable long userId) {
+
+        userService.findUserById(userId).orElseThrow(() -> new ApiErrorException("User not found", HttpStatus.NOT_FOUND));
+
+        userService.deleteUserById(userId);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
 }
+
