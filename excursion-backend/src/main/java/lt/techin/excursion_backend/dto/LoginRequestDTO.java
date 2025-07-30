@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record LoginRequestDTO(@NotNull(message = "You must provide an email")
-                             @Size(min = 4, max = 255, message = "Email must be between 4 and 255 characters")
+                             @Size(min = 8, max = 255, message = "Email must be between 8 and 255 characters")
                              @Email(message = "Invalid email format")
                              String email,
 
