@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LogInSchema } from "@/schemas/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { FormProvider } from "react-hook-form";
-import { Form, NavLink } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { NavLink } from "react-router";
 
-export const LogIn = () => {
+
+export const UserLoginForm = () => {
     const form = useForm({
-        resolver: zodResolver(LogInschema),
+        resolver: zodResolver(LogInSchema),
         mode: "onChange",
         defaultValues: {
             email: "",
@@ -28,19 +30,19 @@ export const LogIn = () => {
 
     const handleLogIn = async (data) => {
         try {
-            setStatus(Loading);
+            // setStatus(Loading);
             console.log(data);
 
-            await LogIn(data);
-            toast.success("Welcome")
-            setStatus(Succees);
+            // await LogIn(data);
+            // toast.success("Welcome")
+            // setStatus(Succees);
             form.reset()
-            navigate("/home")
+            // navigate("/home")
         }
         catch (error) {
-            setErrorMessage(error.message);
-            setErrorStatus(error.status)
-            setStatus(Error);
+            // setErrorMessage(error.message);
+            // setErrorStatus(error.status)
+            // setStatus(Error);
         }
     };
 
@@ -60,7 +62,7 @@ export const LogIn = () => {
                         </FormControl>
                         <FormMessage
                         className="text-red-500">
-                            {errorMessage && errorStatus === 404 ? errorMessage: form.formState.errors.email?.message}
+                            {/* {errorMessage && errorStatus === 404 ? errorMessage: form.formState.errors.email?.message} */}
                         </FormMessage>
                         </FormItem>
                     )}
@@ -76,7 +78,7 @@ export const LogIn = () => {
                 </FormControl>
                 <FormMessage
                 className="text-red-500">
-                  {errorMessage && errorStatus === 400 ? errorMessage : form.formState.errors.password?.message}
+                  {/* {errorMessage && errorStatus === 400 ? errorMessage : form.formState.errors.password?.message} */}
                 </FormMessage>
               </FormItem>
             )}

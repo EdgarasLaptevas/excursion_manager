@@ -1,30 +1,25 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthProvider";
-import HomePage from "../pages/home/HomePage";
-import LoginForm from "../pages/auth/LoginForm";
-import ExcursionRegistrationForm from "../pages/excursions/ExcursionRegistrationForm";
-import UserRegistrationForm from "../pages/auth/UserRegistrationForm";
-import UserReservationList from "../pages/excursions/UserReservationList";
+import { AuthProvider } from "@/contexts/AuthProvider";
+import { MainLayout } from "@/layouts/MainLayout";
+import { UserLoginForm } from "@/pages/auth/LoginForm";
+import { UserRegisterForm } from "@/pages/auth/UserRegistrationForm";
+import HomePage from "@/pages/home/HomePage";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 
-export default function RoutePaths() {
-  const { isLoggedIn, login } = useAuth();
+export const RoutePaths = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route
-        path="/login"
-        element={
-          !isLoggedIn ? <LoginForm onLogin={login} /> : <Navigate to="/" />
-        }
-      />
-      <Route path="/register" element={<UserRegistrationForm />} />
-      <Route
-        path="/add-excursion"
-        element={
-          isLoggedIn ? <ExcursionRegistrationForm /> : <Navigate to="/login" />
-        }
-      />
-      <Route path="/my-reservations" element={<UserReservationList />} />
-    </Routes>
+    <BrowserRouter>
+      <AuthProvider>
+        {/* <UIProvider> */}
+          <Routes>
+            <Route path="/register" element={<UserRegisterForm />} />
+            <Route path="/login" element={<UserLoginForm />} />
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Navigate to={"/home"} replace />} />
+              <Route path="/home" element={<HomePage />} />
+            </Route>
+          </Routes>
+        {/* </UIProvider> */}
+      </AuthProvider>
+    </BrowserRouter>
   );
-}
+};

@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthProvider";
 
 export default function NavBar() {

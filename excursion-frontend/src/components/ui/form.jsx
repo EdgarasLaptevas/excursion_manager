@@ -5,7 +5,11 @@ import { Controller, FormProvider, useFormContext, useFormState } from "react-ho
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 
-const Form = FormProvider
+// const Form = FormProvider
+
+function Form({ children, ...props}) {
+  return <form {...props}>{children}</form>
+}
 
 const FormFieldContext = React.createContext({})
 

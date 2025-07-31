@@ -1,12 +1,13 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
-import { Form, NavLink, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RegisterSchema } from "@/schemas/RegisterSchema";
+import { NavLink, useNavigate } from "react-router";
 
-export const Register = () => {
+export const UserRegisterForm = () => {
     const form = useForm({
         resolver: zodResolver(RegisterSchema),
         mode: "onChange",
@@ -29,7 +30,7 @@ export const Register = () => {
     const { Loading, Success, Error } = UIStatus;
     const { setStatus } = useUI();
     const { register } = useAuth();
-    const navigate = useNavigate;
+    const navigate = useNavigate()
 
     const handleRegFormSubmit = async (data) => {
         try {
