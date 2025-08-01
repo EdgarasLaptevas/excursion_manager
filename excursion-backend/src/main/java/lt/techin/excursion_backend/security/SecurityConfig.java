@@ -46,14 +46,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .oauth2ResourceServer(o -> o.jwt(Customizer.withDefaults()))
-                .sessionManagement((sesion) -> sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler()))
                         .
                 authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/token").hasAnyRole("ADMIN", "CLIENT")
                         .anyRequest().authenticated()
                 );
         return http.build();

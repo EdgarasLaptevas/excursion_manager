@@ -10,6 +10,7 @@ import lt.techin.excursion_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -37,6 +38,7 @@ public class TokenController extends BaseController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_CLIENT', 'SCOPE_ROLE_ADMIN')")
     @PostMapping("/auth/token")
     public ResponseEntity<ApiResponse<String>> token(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         Instant now = Instant.now();

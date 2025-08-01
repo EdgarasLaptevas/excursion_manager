@@ -1,6 +1,7 @@
 package lt.techin.excursion_backend.controller.auth;
 
 import jakarta.validation.Valid;
+import lt.techin.excursion_backend.controller.BaseController;
 import lt.techin.excursion_backend.dto.ApiResponse;
 import lt.techin.excursion_backend.dto.UserMapper;
 import lt.techin.excursion_backend.dto.UserRequestDTO;
@@ -21,7 +22,7 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController extends BaseController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
@@ -34,7 +35,7 @@ public class UserController {
     @PostMapping("/auth/register")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         if (userService.userExistsByEmail(userRequestDTO.email())) {
-            return ResponseEntity.badRequest().body("User already exists with such email");
+            return badRequest(null, "User already exists with such email");
         }
 
         User user = UserMapper.toEntity(userRequestDTO);
@@ -42,7 +43,7 @@ public class UserController {
 
         UserResponseDTO responseDTO = UserMapper.toDTO(userService.saveUser(user));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        return created(responseDTO, "User created successfully.");
     }
 
 //    @DeleteMapping("/users/{userId}")
