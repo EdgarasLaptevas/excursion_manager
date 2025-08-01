@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { UIProvider } from "@/contexts/UIContext";
 import { MainLayout } from "@/layouts/MainLayout";
 import { UserLoginForm } from "@/pages/auth/LoginForm";
 import { UserRegisterForm } from "@/pages/auth/UserRegistrationForm";
@@ -9,7 +10,7 @@ export const RoutePaths = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        {/* <UIProvider> */}
+        <UIProvider>
           <Routes>
             <Route path="/register" element={<UserRegisterForm />} />
             <Route path="/login" element={<UserLoginForm />} />
@@ -18,7 +19,7 @@ export const RoutePaths = () => {
               <Route path="/home" element={<HomePage />} />
             </Route>
           </Routes>
-        {/* </UIProvider> */}
+        </UIProvider>
       </AuthProvider>
     </BrowserRouter>
   );

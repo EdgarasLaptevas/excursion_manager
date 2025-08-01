@@ -4,8 +4,8 @@ import { useAuth } from "../contexts/AuthProvider";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const { isLoggedIn, roles = [], logout } = useAuth();
-  const hasRole = (role) => roles.include(role);
+  const { isLoggedIn, logout } = useAuth();
+
 
   return (
     <nav className="mt-1 flex items-center justify-center gap-[8px]">

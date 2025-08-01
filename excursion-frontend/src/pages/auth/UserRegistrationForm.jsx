@@ -6,6 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RegisterSchema } from "@/schemas/RegisterSchema";
 import { NavLink, useNavigate } from "react-router";
+import { useAuth } from "@/contexts/AuthProvider";
+import { UIStatus } from "@/constants/UIStatus";
+import { useUI } from "@/contexts/UIContext";
+import toast from "react-hot-toast";
 
 export const UserRegisterForm = () => {
     const form = useForm({
@@ -14,6 +18,7 @@ export const UserRegisterForm = () => {
         defaultValues: {
             email: "",
             password: "",
+            repeatPassword: ""
         },
     });
 
@@ -25,19 +30,21 @@ export const UserRegisterForm = () => {
     //     }
     // })
 
-    const [errorStatus, setErrorstatus] = useState(null)
+    const [errorStatus, setErrorStatus] = useState(null)
     const [error, setError] = useState(null);
-    const { Loading, Success, Error } = UIStatus;
+    const { Loading, Success, Error  } = UIStatus;
     const { setStatus } = useUI();
     const { register } = useAuth();
     const navigate = useNavigate()
 
     const handleRegFormSubmit = async (data) => {
         try {
-            const payload = { username: data.email, password: data.password};
 
             setStatus(Loading);
-            const response = await register(payload);
+            const response = await register(data);
+
+            console.log(response)
+
             const { message, success } = response.data;
 
             if (message && success) {
@@ -51,11 +58,12 @@ export const UserRegisterForm = () => {
                 setError("Unknown error");
             }
         } catch (error) {
+          console.log(error?.response)
             const errorMessage = 
             error?.response?.data?.message ?? error?.message ?? "Unknown error";
             const errorStatus = error?.response?.status
             setError(errorMessage);
-            setErrorstatus(errorStatus);
+            setErrorStatus(errorStatus);
             setStatus(Error);
         }
     };

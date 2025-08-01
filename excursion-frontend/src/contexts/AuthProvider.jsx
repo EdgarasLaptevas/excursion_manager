@@ -36,14 +36,16 @@ export const AuthProvider = ({ children }) => {
         error?.response?.data?.message ?? error?.message ?? "Unknown error";
         const errorStatus = error?.response?.status
         throw new ApiError(errorMessage, errorStatus);
+      
     }
   }; 
 
   const register = async ({ email, password}) => {
-    return await api.post("/auth/register", {
+   const response =  await api.post("/auth/register", {
       email,
       password,
     });
+    return response
   };
 
   const logout = () => {
