@@ -18,17 +18,14 @@ public class Excursion {
     private String excursionName;
     private String description;
     private String photoUrl;
-    private double duration;
+    private long duration;
     private double price;
     private String review;
-
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 
     public Excursion() {
     }
 
-    public Excursion(String excursionName, String description, String photoUrl, double duration, double price, String review) {
+    public Excursion(String excursionName, String description, String photoUrl, long duration, double price, String review) {
         this.excursionName = excursionName;
         this.description = description;
         this.photoUrl = photoUrl;
@@ -65,10 +62,6 @@ public class Excursion {
         return review;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     public void setExcursionId(long excursionId) {
         this.excursionId = excursionId;
     }
@@ -85,7 +78,7 @@ public class Excursion {
         this.photoUrl = photoUrl;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 
@@ -95,9 +88,5 @@ public class Excursion {
 
     public void setReview(String review) {
         this.review = review;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

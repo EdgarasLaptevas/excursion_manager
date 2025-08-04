@@ -5,7 +5,7 @@ public record ExcursionResponseDTO(
 excursionName,
         String description, String
         photoUrl,
-        double duration, double price, String
+        long duration, double price, String
         review
 ) {
 }
