@@ -1,8 +1,10 @@
 package lt.techin.excursion_backend.model;
 
 import jakarta.persistence.*;
+import org.w3c.dom.Text;
 
 @Entity
+@Table(name = "reviews")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
