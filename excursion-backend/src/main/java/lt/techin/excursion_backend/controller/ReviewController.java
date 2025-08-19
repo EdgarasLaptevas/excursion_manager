@@ -1,6 +1,8 @@
 package lt.techin.excursion_backend.controller;
 
 import jakarta.validation.Valid;
+import lt.techin.excursion_backend.dto.ReviewMapper;
+import lt.techin.excursion_backend.dto.ReviewRequestDTO;
 import lt.techin.excursion_backend.dto.ReviewResponseDTO;
 import lt.techin.excursion_backend.model.Review;
 import lt.techin.excursion_backend.service.ReviewService;
@@ -22,9 +24,10 @@ public class ReviewController extends BaseController{
 
     @PostMapping("/reviews")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_CLIENT')")
-    public ResponseEntity<?>addReview(@Valid @RequestBody ReviewController reviewRequestDTO)
+    public ResponseEntity<?>addReview(@Valid @RequestBody ReviewRequestDTO reviewRequestDTO) {
 
         Review review = ReviewMapper.toEntity(reviewRequestDTO);
         ReviewResponseDTO responseDTO = ReviewMapper.toDTO(reviewService.addReview(review));
-        return created(responseDTO, "Review created successfully.")
+        return created(responseDTO, "Review created successfully.");
+    }
 }
