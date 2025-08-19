@@ -12,7 +12,7 @@ export const clearAuth = () => {
   delete api.defaults.headers.common['Authorization'];
 };
 
-const maybeJwt = localStorage.getItem('jwt');
-if (maybeJwt) {
-  setAuth(maybeJwt);
+const jwt = localStorage.getItem('jwt');
+if (jwt) {
+  setAuth(jwt);
 }
