@@ -38,7 +38,6 @@ public class TokenController extends BaseController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_CLIENT', 'SCOPE_ROLE_ADMIN')")
     @PostMapping("/auth/token")
     public ResponseEntity<ApiResponse<String>> token(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         Instant now = Instant.now();

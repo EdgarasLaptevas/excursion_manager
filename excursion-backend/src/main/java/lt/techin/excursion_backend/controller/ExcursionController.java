@@ -1,8 +1,7 @@
-package lt.techin.excursion_backend.controller.auth;
+package lt.techin.excursion_backend.controller;
 
 
 import jakarta.validation.Valid;
-import lt.techin.excursion_backend.controller.BaseController;
 import lt.techin.excursion_backend.dto.*;
 import lt.techin.excursion_backend.model.Excursion;
 import lt.techin.excursion_backend.service.ExcursionService;
@@ -13,26 +12,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 public class ExcursionController extends BaseController {
     private final ExcursionService excursionService;
-    public final ExcursionMapper excursionMapper;
 
-    public ExcursionController(ExcursionService excursionService, ExcursionMapper excursionMapper) {
+    public ExcursionController(ExcursionService excursionService) {
         this.excursionService = excursionService;
-        this.excursionMapper = excursionMapper;
     }
 
     @PostMapping("/excursions")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_CLIENT')")
     public ResponseEntity<?> addExcursion(@Valid @RequestBody ExcursionRequestDTO excursionRequestDTO) {
         if (excursionService.excursionExistsByExcursionName(excursionRequestDTO.excursionName())) {
             return badRequest(null, "Excursion already exists with such name");
         }
 
         Excursion excursion = ExcursionMapper.toEntity(excursionRequestDTO);
-
         ExcursionResponseDTO responseDTO = ExcursionMapper.toDTO(excursionService.addExcursion(excursion));
-
         return created(responseDTO, "Excursion created successfully.");
     }
 
@@ -40,9 +36,9 @@ public class ExcursionController extends BaseController {
     @GetMapping("/excursions")
     public ResponseEntity<ApiResponse<ExcursionListResponseDTO>> getAllExcursions() {
         List<Excursion> excursions = excursionService.findAllExcursions();
-        ExcursionListResponseDTO excursionListResponseDTO = excursionMapper.toListResponseDto(excursions);
+        ExcursionListResponseDTO excursionListResponseDTO = ExcursionMapper.toListResponseDto(excursions);
 
-        return ok(excursionListResponseDTO, excursions.isEmpty() ? "Reviews List is empty" : null);
+        return ok(excursionListResponseDTO, excursions.isEmpty() ? "Excursions List is empty" : null);
     }
 
 
@@ -58,15 +54,15 @@ public class ExcursionController extends BaseController {
         return ok(null, "Excursion deleted successfully");
     }
 
-    @PutMapping("/excursion/{excursionId}")
-    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_ADMIN')")
+    @PutMapping("/excursions/{excursionId}")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_CLIENT')")
     public ResponseEntity<ApiResponse<ExcursionResponseDTO>> excursionUpdate(@PathVariable long excursionId, @Valid @RequestBody ExcursionRequestDTO excursionRequestDTO) {
        // excursionService.updateExcursion(excursionId, excursionRequestDTO);
 
         Excursion updatedExcursion = excursionService.updateExcursion(excursionId, excursionRequestDTO);
-        ExcursionResponseDTO excursionResponseDTO = excursionMapper.toDTO(updatedExcursion);
+        ExcursionResponseDTO excursionResponseDTO = ExcursionMapper.toDTO(updatedExcursion);
 
-        return ok(excursionResponseDTO, "Review updated successfully");
+        return ok(excursionResponseDTO, "Excursion updated successfully");
     }
 
 }

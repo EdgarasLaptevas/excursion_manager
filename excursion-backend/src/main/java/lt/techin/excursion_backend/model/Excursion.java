@@ -1,14 +1,18 @@
 package lt.techin.excursion_backend.model;
 
 import jakarta.persistence.*;
+import lt.techin.excursion_backend.model.registration.Registration;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "excursion")
+@Table(name = "excursions")
 public class Excursion {
 
     @Id
@@ -19,19 +23,22 @@ public class Excursion {
     private String description;
     private String photoUrl;
     private long duration;
-    private double price;
-    private String review;
+    private BigDecimal price;
+
+
+    @OneToMany(mappedBy = "excursion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Registration> registrations = new ArrayList<>();
+
 
     public Excursion() {
     }
 
-    public Excursion(String excursionName, String description, String photoUrl, long duration, double price, String review) {
+    public Excursion(String excursionName, String description, String photoUrl, long duration, BigDecimal price) {
         this.excursionName = excursionName;
         this.description = description;
         this.photoUrl = photoUrl;
         this.duration = duration;
         this.price = price;
-        this.review = review;
     }
 
     public long getExcursionId() {
@@ -50,16 +57,16 @@ public class Excursion {
         return photoUrl;
     }
 
-    public double getDuration() {
+    public long getDuration() {
         return duration;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public String getReview() {
-        return review;
+    public List<Registration> getRegistrations() {
+        return registrations;
     }
 
     public void setExcursionId(long excursionId) {
@@ -82,11 +89,11 @@ public class Excursion {
         this.duration = duration;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
     }
 }

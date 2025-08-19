@@ -1,7 +1,9 @@
 package lt.techin.excursion_backend.model;
 
 import jakarta.persistence.*;
+import lt.techin.excursion_backend.model.registration.Registration;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
@@ -26,6 +28,9 @@ public class User implements UserDetails {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Registration> registrations = new ArrayList<>();
 
     public User(){
     }
@@ -85,4 +90,15 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public List<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
+    }
+
+    //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Review> reviews;
 }
