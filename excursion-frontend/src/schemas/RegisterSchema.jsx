@@ -4,9 +4,9 @@ export const RegisterSchema = z
   .object({
     email: z
       .string()
-      .min(8, { message: "Email must be atleast 8 characters long" })
+      .min(8, { message: "Email must be at least 8 characters long" })
       .max(255, {
-        message: "Email cannot be longer than 255 characters long",
+        message: "Email cannot be longer than 255 characters",
       })
       .refine((val) => val.trim() !== "", {
         message: "Email cannot be blank",

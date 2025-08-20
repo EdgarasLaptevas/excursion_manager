@@ -7,6 +7,9 @@ import { ExcursionForm } from "@/pages/ExcursionForm";
 import ExcursionListPage from "@/components/ExcursionsList";
 import HomePage from "@/pages/home/HomePage";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { ReviewForm } from "@/pages/ReviewForm";
+import WelcomePage from "@/pages/WelcomePage";
+import MyRegistrations from "@/pages/excursions/UserReservationList";
 
 export const RoutePaths = () => {
   return (
@@ -14,6 +17,9 @@ export const RoutePaths = () => {
       <AuthProvider>
         <UIProvider>
           <Routes>
+            <Route path="/welcome" element={<WelcomePage />} />
+            <Route path="/myregistrations" element={<MyRegistrations />} />
+            <Route path="/reviews" element={<ReviewForm />} />
             <Route path="/register" element={<UserRegisterForm />} />
             <Route path="/login" element={<UserLoginForm />} />
             <Route path="/excursions" element={<ExcursionForm/>} />

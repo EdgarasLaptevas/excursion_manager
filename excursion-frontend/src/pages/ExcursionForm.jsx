@@ -33,7 +33,6 @@ export const ExcursionForm = () => {
 
   const handleSubmitExcursion = async (data) => {
     try {
-      // Replace with your actual API endpoint
       const response = await api.post("/excursions", data
       );
 

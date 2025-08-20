@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     setAccount(null);
     clearAuth();
     localStorage.removeItem("jwt");
-    navigate("/home");
+    navigate("/welcome");
   };
 
   return (
